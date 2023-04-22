@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/components/smart_list_view.dart';
 import 'package:movie_app/widgets/title_text.dart';
 
 import '../data/vos/movie_vo.dart';
@@ -13,7 +14,10 @@ class TitleAndHorizontalMovieListView extends StatelessWidget {
   final Function onListEachReached;
 
   TitleAndHorizontalMovieListView(
-      {required this.onTapMovie, required this.nowPlayingMovies, required this.title, required this.onListEachReached});
+      {required this.onTapMovie,
+      required this.nowPlayingMovies,
+      required this.title,
+      required this.onListEachReached});
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -25,9 +29,10 @@ class TitleAndHorizontalMovieListView extends StatelessWidget {
         SizedBox(height: MARGIN_MEDIUM_2),
         HorizontalMovieListView(
           onTapMovie: (movieId) => this.onTapMovie(movieId),
-          movieList: nowPlayingMovies, onListEachReached: (){
+          movieList: nowPlayingMovies,
+          onListEndReached: () {
             this.onListEachReached();
-        },
+          },
         ),
       ],
     );
@@ -37,31 +42,48 @@ class TitleAndHorizontalMovieListView extends StatelessWidget {
 class HorizontalMovieListView extends StatelessWidget {
   final Function(int?) onTapMovie;
   final List<MovieVO>? movieList;
-  final Function onListEachReached;
+  final Function onListEndReached;
 
-  HorizontalMovieListView({required this.onTapMovie, required this.movieList, required this.onListEachReached});
+  HorizontalMovieListView(
+      {required this.onTapMovie,
+      required this.movieList,
+      required this.onListEndReached});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: MOVIE_LIST_HEIGHT,
       child: (movieList != null)
-          ? ListView.builder(
-        scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.only(left: MARGIN_MEDIUM_2),
-        itemCount: movieList?.length ?? 0,
-        itemBuilder: (BuildContext context, int index) {
-          return GestureDetector(
-            onTap: () => onTapMovie(movieList?[index].id),
-            child: MovieView(
-              movie: movieList?[index],
-            ),
-          );
-        },
-      )
+          //     ? ListView.builder(
+          //   scrollDirection: Axis.horizontal,
+          //   padding: EdgeInsets.only(left: MARGIN_MEDIUM_2),
+          //   itemCount: movieList?.length ?? 0,
+          //   itemBuilder: (BuildContext context, int index) {
+          //     return GestureDetector(
+          //       onTap: () => onTapMovie(movieList?[index].id),
+          //       child: MovieView(
+          //         movie: movieList?[index],
+          //       ),
+          //     );
+          //   },
+          // )
+          ? SmartHorizontalListView(
+              itemCount: movieList?.length ?? 0,
+              padding: EdgeInsets.only(left: MARGIN_MEDIUM_2),
+              itemBuilder: (BuildContext context, int index) {
+                return MovieView(
+                  movie: movieList?[index],
+                  onTapMovie: (movieId) {
+                    this.onTapMovie(movieId);
+                  },
+                );
+              },
+              onListEndReached: () {
+                this.onListEndReached();
+              })
           : Center(
-        child: CircularProgressIndicator(),
-      ),
+              child: CircularProgressIndicator(),
+            ),
     );
   }
 }

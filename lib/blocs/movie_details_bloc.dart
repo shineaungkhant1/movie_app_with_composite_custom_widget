@@ -9,7 +9,7 @@ import '../data/vos/movie_vo.dart';
 
 class MovieDetailsBLoc extends ChangeNotifier{
   /// Stream Controllers
-   late MovieVO  mMovie;
+   MovieVO?  mMovie;
    List<ActorVO>? mCastList;
    List<ActorVO>? mCrewList;
    List<MovieVO>? mRelatedMovies;
@@ -22,7 +22,7 @@ class MovieDetailsBLoc extends ChangeNotifier{
      /// Movie Details
      mMovieModel.getMovieDetails(movieId)?.then((movie) {
       mMovie=movie;
-      this.getRelatedMovies(movie.genreIds?.first??0);
+      this.getRelatedMovies(movie.genres?.first.id??0);
       notifyListeners();
      });
 

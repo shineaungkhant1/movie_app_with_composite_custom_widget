@@ -9,9 +9,10 @@ import '../resources/dimens.dart';
 class MovieView extends StatelessWidget {
 
   final MovieVO? movie;
+  final Function(int?) onTapMovie;
 
 
-  MovieView({required this.movie});
+  MovieView({required this.movie, required this.onTapMovie});
 
   @override
   Widget build(BuildContext context) {

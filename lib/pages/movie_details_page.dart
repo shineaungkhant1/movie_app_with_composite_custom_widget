@@ -26,7 +26,7 @@ class MovieDetalisPage extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MovieDetailsBLoc(movieId),
       child: Scaffold(
-        body: Selector<MovieDetailsBLoc,MovieVO>(
+        body: Selector<MovieDetailsBLoc,MovieVO?>(
           selector: (context,bloc)=>bloc.mMovie,
           builder: (context, movie, child) => Container(
             color: HOME_SCREEN_BACKGROUND_COLOR,
