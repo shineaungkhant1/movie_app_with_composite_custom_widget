@@ -43,9 +43,9 @@ class MovieVOAdapter extends TypeAdapter<MovieVO> {
       fields[23] as bool?,
       fields[24] as double?,
       fields[25] as int?,
-      fields[26] as bool?,
-      fields[27] as bool?,
-      fields[28] as bool?,
+      isNowPlaying: fields[26] as bool?,
+      isPopular: fields[27] as bool?,
+      isTopRated: fields[28] as bool?,
     );
   }
 
@@ -166,9 +166,9 @@ MovieVO _$MovieVOFromJson(Map<String, dynamic> json) => MovieVO(
       json['video'] as bool?,
       (json['vote_average'] as num?)?.toDouble(),
       json['vote_count'] as int?,
-      json['isNowPlaying'] as bool?,
-      json['isPopular'] as bool?,
-      json['isTopRated'] as bool?,
+      isNowPlaying: json['isNowPlaying'] as bool?,
+      isPopular: json['isPopular'] as bool?,
+      isTopRated: json['isTopRated'] as bool?,
     );
 
 Map<String, dynamic> _$MovieVOToJson(MovieVO instance) => <String, dynamic>{

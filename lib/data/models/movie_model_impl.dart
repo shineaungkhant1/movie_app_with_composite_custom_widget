@@ -9,6 +9,10 @@ import 'package:movie_app/persistence/daos/genre_dao.dart';
 import 'package:movie_app/persistence/daos/movie_dao.dart';
 import 'package:stream_transform/stream_transform.dart';
 
+import '../../persistence/daos/impls/actor_dao_impl.dart';
+import '../../persistence/daos/impls/genre_dao_impl.dart';
+import '../../persistence/daos/impls/movie_dao_impl.dart';
+
 class MovieModelImpl extends MovieModel {
   MovieDataAgent mDataAgent = RetrofitDataAgentImpl();
 
@@ -21,9 +25,19 @@ class MovieModelImpl extends MovieModel {
   MovieModelImpl._internal();
 
   /// Daos
-  MovieDao mMovieDao = MovieDao();
-  GenreDao mGenreDao = GenreDao();
-  ActorDao mActorDao = ActorDao();
+  MovieDao mMovieDao = MovieDaoImpl();
+  GenreDao mGenreDao = GenreDaoImpl();
+  ActorDao mActorDao = ActorDaoImpl();
+
+  /// For Testing Purpose
+  void setDaosAndDataAgents(MovieDao movieDao,ActorDao actorDao,GenreDao genreDao,
+      MovieDataAgent dataAgent){
+    mMovieDao = movieDao;
+    mActorDao = actorDao;
+    mGenreDao = genreDao;
+    mDataAgent = dataAgent;
+    print("Runtime Type=>>>>>>>>>>>>>>>>${mDataAgent.runtimeType}");
+  }
 
   /// Network
 
@@ -121,6 +135,7 @@ class MovieModelImpl extends MovieModel {
   @override
   Stream<List<MovieVO>> getNowPlayingMoviesFromDatabase() {
     this.getNowPlayingMovies(1);
+    print("MMOvieDao============================> ${mMovieDao.getNowPlayingMovies()}");
     return mMovieDao
         .getAllMoviesEventStream()
         .startWith(mMovieDao.getNowPlayingMoviesStream())

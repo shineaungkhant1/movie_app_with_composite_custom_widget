@@ -155,9 +155,9 @@ class MovieVO{
       this.video,
       this.voteAverage,
       this.voteCount,
-      this.isNowPlaying,
-      this.isPopular,
-      this.isTopRated);
+      {required this.isNowPlaying,
+        required this.isPopular,
+        required this.isTopRated});
 
   factory MovieVO.fromJson(Map<String,dynamic> json) => _$MovieVOFromJson(json);
 
@@ -180,8 +180,6 @@ class MovieVO{
 
   @override
   String toString() {
-    return 'MovieVO{adult: $adult, backDropPath: $backDropPath, genreIds: $genreIds, id: $id, originalLanguage: $originalLanguage, originalTitle: $originalTitle, overView: $overView, popularity: $popularity, posterPath: $posterPath, releaseDate: $releaseDate, title: $title, video: $video, voteAverage: $voteAverage, voteCount: $voteCount}';
+    return 'MovieVO{adult: $adult, backDropPath: $backDropPath, genreIds: $genreIds, belongsToCollection: $belongsToCollection, budget: $budget, genres: $genres, homePage: $homePage, id: $id, imdbId: $imdbId, originalLanguage: $originalLanguage, originalTitle: $originalTitle, overView: $overView, popularity: $popularity, posterPath: $posterPath, productionCompanies: $productionCompanies, productionCountries: $productionCountries, revenue: $revenue, runtime: $runtime, releaseDate: $releaseDate, spokenLanguages: $spokenLanguages, status: $status, tagLine: $tagLine, title: $title, video: $video, voteAverage: $voteAverage, voteCount: $voteCount, isNowPlaying: $isNowPlaying, isPopular: $isPopular, isTopRated: $isTopRated}';
   }
-
-
 }
