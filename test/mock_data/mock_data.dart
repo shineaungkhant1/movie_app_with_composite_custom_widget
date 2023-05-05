@@ -42,7 +42,7 @@ List<MovieVO> getMockMoviesForTest() {
         null,
         null,
         null,
-        502356,
+        502358,
         null,
         "en",
         "The Super Mario Bros. Movie",
@@ -72,7 +72,7 @@ List<MovieVO> getMockMoviesForTest() {
         null,
         null,
         null,
-        502356,
+        502357,
         null,
         "en",
         "The Super Mario Bros. Movie",
@@ -111,8 +111,20 @@ List<ActorVO> getMockActors() {
 List<GenreVO> getMockGenres(){
   return [
     GenreVO(1, "Action"),
-    GenreVO(1, "Comedy"),
-    GenreVO(1, "Adventure"),
+    GenreVO(2, "Comedy"),
+    GenreVO(3, "Adventure"),
+  ];
+}
+
+List<List<ActorVO>> getMockCredits() {
+  return [
+    [
+      ActorVO(false, 1, 123, [], "Actor", "Gojo", 89.12, "hello", "Gojo Satoru", 1, "Jujutsu Sorcerer", "1", 1),
+      ActorVO(false, 2, 124, [], "Actor", "Gojo", 89.12, "hello", "Gojo Satoru", 2, "Jujutsu Sorcerer", "2", 2),
+    ],
+    [
+      ActorVO(false, 3, 125, [], "Actor", "Gojo", 89.12, "hello", "Gojo Satoru", 3, "Jujutsu Sorcerer", "3", 3),
+    ]
   ];
 }
 
