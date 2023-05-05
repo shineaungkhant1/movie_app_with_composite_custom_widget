@@ -5,7 +5,6 @@ import 'package:movie_app/data/models/movie_model_impl.dart';
 import 'package:movie_app/data/vos/actor_vo.dart';
 import 'package:movie_app/data/vos/genre_vo.dart';
 import 'package:movie_app/data/vos/movie_vo.dart';
-
 import '../data/models/movie_model.dart';
 
 class HomeBloc extends ChangeNotifier{
@@ -23,7 +22,14 @@ class HomeBloc extends ChangeNotifier{
   /// Models
   MovieModel mMovieModel = MovieModelImpl();
 
-  HomeBloc(){
+
+  HomeBloc([MovieModel? movieModel]){
+    /// Set Mock Model For Test Data
+    if(movieModel != null){
+      mMovieModel = movieModel;
+    }
+
+    /// Now Playing Movies Database
     mMovieModel.getNowPlayingMoviesFromDatabase().listen((movieList) {
       mNowPlayingMovieList=movieList;
       notifyListeners();
@@ -31,6 +37,7 @@ class HomeBloc extends ChangeNotifier{
       print(error.toString());
     });
 
+    /// Popular Movies Database
     mMovieModel.getPopularMoviesFromDatabase().listen((movieList) {
       mPopularMoviesList=movieList;
       notifyListeners();
@@ -38,6 +45,8 @@ class HomeBloc extends ChangeNotifier{
       print(error.toString());
     });
 
+
+    /// Genres
     mMovieModel.getGenres().then((genreList){
       mGenreList = genreList;
       getMoviesByGenreAndRefresh(genreList.first.id);
@@ -46,6 +55,7 @@ class HomeBloc extends ChangeNotifier{
     });
 
 
+    /// Genre Database
     mMovieModel.getGenresFromDatabase().then((genreList){
       mGenreList = genreList;
       getMoviesByGenreAndRefresh(genreList.first.id);
@@ -53,6 +63,8 @@ class HomeBloc extends ChangeNotifier{
       print(error.toString());
     });
 
+
+    /// Showcases Database
     mMovieModel.getTopRatedMoviesFromDatabase().listen((movieList) {
       mShowCaseMovieList=movieList;
       notifyListeners();
@@ -60,6 +72,8 @@ class HomeBloc extends ChangeNotifier{
       print(error.toString());
     });
 
+
+    /// Actors
     mMovieModel.getActors(1).then((actorList){
       mActors=actorList;
       notifyListeners();
@@ -67,6 +81,7 @@ class HomeBloc extends ChangeNotifier{
       print(error.toString());
     });
 
+    /// Actors Database
     mMovieModel.getAllActorsFromDatabase().then((actorList){
       mActors=actorList;
       notifyListeners();

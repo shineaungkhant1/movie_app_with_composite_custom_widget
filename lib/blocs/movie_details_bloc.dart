@@ -18,11 +18,16 @@ class MovieDetailsBLoc extends ChangeNotifier{
   /// Models
    MovieModel mMovieModel = MovieModelImpl();
 
-   MovieDetailsBLoc(int movieId){
+   MovieDetailsBLoc(int movieId,[MovieModel? movieModel]){
+
+     if(movieModel != null){
+       mMovieModel = movieModel;
+     }
+
      /// Movie Details
      mMovieModel.getMovieDetails(movieId)?.then((movie) {
       mMovie=movie;
-      this.getRelatedMovies(movie.genres?.first.id??0);
+      getRelatedMovies(movie.genres?.first.id??0);
       notifyListeners();
      });
 
@@ -43,6 +48,7 @@ class MovieDetailsBLoc extends ChangeNotifier{
      mMovieModel.getMoviesByGenre(genreId)?.then((relatedMovies){
        mRelatedMovies = relatedMovies;
        notifyListeners();
+       print("mRelatedMovie=======================>${mRelatedMovies}");
      });
    }
 
